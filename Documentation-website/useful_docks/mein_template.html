@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документация CTF - Классы</title>
+
+    <style>
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('/font_minecraft/minecraft.ttf') format('truetype');
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            /* Скрываем прокрутку у body */
+        }
+
+        body {
+
+            font-family: 'Minecraft', sans-serif;
+            height: 100vh;
+            background: url('backgrounds/image1.webp') no-repeat center center fixed;
+            background-size: cover;
+            animation: backgroundAnimation 45s infinite ease-in-out;
+        }
+
+        /* Анимация плавного перехода изображений */
+        @keyframes backgroundAnimation {
+            0% {
+                background-image: url('backgrounds/image1.webp');
+            }
+
+            16.67% {
+                background-image: url('backgrounds/image2.webp');
+            }
+
+            33.33% {
+                background-image: url('backgrounds/image3.webp');
+            }
+
+            50% {
+                background-image: url('backgrounds/image4.webp');
+            }
+
+            66.67% {
+                background-image: url('backgrounds/image5.webp');
+            }
+
+            83.33% {
+                background-image: url('backgrounds/image6.webp');
+            }
+
+            100% {
+                background-image: url('backgrounds/image1.webp');
+            }
+        }
+
+        .navbar {
+            background-color: #37474f;
+            padding: 15px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .container {
+            display: flex;
+            height: calc(100vh - 60px);
+            /* Высота контейнера за вычетом навбара */
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #37474f;
+            padding: 20px;
+            color: #ffffff;
+            box-sizing: border-box;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar-hidden .sidebar {
+            width: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            /* Вертикальная прокрутка */
+            padding: 0 20px;
+        }
+
+        .content {
+            width: 800px;
+            /* Фиксированная ширина для контента */
+            margin: 0 auto;
+            /* Центрируем по горизонтали */
+            padding: 40px 0;
+        }
+
+        .block {
+
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .block h2 {
+            margin-top: 0;
+        }
+
+        /* .block */
+        .skill {
+            background-color: rgba(131, 168, 235, 0.9);
+            color: #ffffff;
+            padding: 20px;
+            line-height: 2;
+            font-size: 16px;
+
+        }
+
+        .skills {
+            padding: 0px;
+        }
+
+        .block.skills h3 {
+            background-color: #ff5722;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Стиль для кнопки скрытия боковой панели */
+        .toggle-btn {
+            background-color: #37474f;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        /* Увеличение контента */
+        .sidebar-hidden .content {
+            margin-left: auto;
+            /* Центрирование по горизонтали при скрытии боковой панели */
+            margin-right: auto;
+        }
+
+        .description {
+            background-color: rgba(131, 168, 235, 0.9);
+        }
+
+        ul {
+            line-height: 2;
+            padding: 5px;
+        }
+
+        li {
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        h1 {
+            color: #ffffff;
+        }
+
+        .text_h1 {
+            background-color: rgba(125, 227, 193, 0.75);
+            /* padding: 5px; */
+            line-height: 2;
+            list-style: disc;
+            padding-left: 5px;
+        }
+
+        .skill_h2 {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: rgba(205, 137, 240, 0.95);
+        }
+
+
+        .menu-item {
+
+
+            margin: 5px 0;
+            /* Отступы между элементами */
+            padding-left: 5px;
+            list-style: none;
+            /* Убираем маркеры списка */
+            cursor: pointer;
+            /* Изменяем курсор на указатель */
+            transition: background-color 0.3s ease;
+            /* Плавный переход фона */
+        }
+
+
+        .menu-item:hover {
+            background-color: #545953;
+            /*  при наведении делаю для ванечки темный фон  */
+        }
+
+        .menu-item.active {
+            background-color: #007bff;
+            /* Цвет для выделенного элемента */
+            color: white;
+            /* Текст будет белым на активном фоне */
+        }
+
+
+
+
+        /* ени тайм ени синг донт тоооо - ооо- лк  */
+    </style>
+
+    <!-- Предзагрузка изображений -->
+    <link rel="preload" href="backgrounds/image1.webp" as="image">
+    <link rel="preload" href="backgrounds/image2.webp" as="image">
+    <link rel="preload" href="backgrounds/image3.webp" as="image">
+    <link rel="preload" href="backgrounds/image4.webp" as="image">
+    <link rel="preload" href="backgrounds/image5.webp" as="image">
+    <link rel="preload" href="backgrounds/image6.webp" as="image">
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>Документация CTF</h1>
+        <button class="toggle-btn" onclick="toggleSidebar()">&#9776;</button>
+    </div>
+
+    <div class="container" id="container">
+        <div class="sidebar">
+            <ul>
+                <!-- old -->
+                <li class="menu-item" onclick="loadClassData('ассасин')">Ассасин</li>
+                <li class="menu-item" onclick="loadClassData('варвар')">Варвар</li>
+                <li class="menu-item" onclick="loadClassData('берсерк')">Берсерк</li>
+                <li class="menu-item" onclick="loadClassData('ветеран')">Ветеран</li>
+                <li class="menu-item" onclick="loadClassData('дикарь')">Дикарь</li>
+                <li class="menu-item" onclick="loadClassData('инквизитор')">Инквизитор</li>
+                <li class="menu-item" onclick="loadClassData('легионер')">Легионер</li>
+                <li class="menu-item" onclick="loadClassData('наемник')">Наемник</li>
+                <li class="menu-item" onclick="loadClassData('ниндзя')">Ниндзя</li>
+                <li class="menu-item" onclick="loadClassData('разбойник')">Разбойник</li>
+                <li class="menu-item" onclick="loadClassData('рыцарь')">Рыцарь</li>
+                <li class="menu-item" onclick="loadClassData('фантом')">Фантом</li>
+                <li class="menu-item" onclick="loadClassData('арахнид')">Арахнид</li>
+                <li class="menu-item" onclick="loadClassData('друид')">Друид</li>
+                <!-- new -->
+                <li class="menu-item" onclick="loadClassData('корсар')">Корсар</li>
+                <li class="menu-item" onclick="loadClassData('криомант')">Криомант</li>
+                <li class="menu-item" onclick="loadClassData('некромант')">Некромант</li>
+                <li class="menu-item" onclick="loadClassData('паромеханик')">Паромеханик</li>
+                <li class="menu-item" onclick="loadClassData('пиромант')">Пиромант</li>
+                <li class="menu-item" onclick="loadClassData('темный_колдун')">Темный колдун</li>
+                <li class="menu-item" onclick="loadClassData('упырь')">Упырь</li>
+            </ul>
+
+        </div>
+
+        <div class="content-wrapper">
+            <div class="content">
+                <div id="class-content">
+                    <h2>Описание</h2>
+                    <div class="block description">
+                        <p>Тут будет описание выбранного класса.</p>
+                    </div>
+                    <div class="block skills">
+                        <h2>Скиллы</h2>
+                        <div class="skill">
+                            <h3>1. Название скилла</h3>
+                            <p>Описание скилла.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Скрипт для скрытия/показа боковой панели -->
+    <script>
+        function loadClassData(className) {
+
+            window.location.hash = className;
+            fetch(`second_templates/${className}.html`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('class-content').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Ошибка подгрузки данных:', error);
+                });
+        }
+
+        function toggleSidebar() {
+            const container = document.getElementById('container');
+            container.classList.toggle('sidebar-hidden');
+        }
+
+
+
+
+        // Обработка смены хэша
+        function handleHashChange() {
+            const hash = window.location.hash.substring(1); // Убираем символ #
+            if (hash) {
+                loadClassData(hash);
+            }
+        }
+
+        // Обработка события изменения хэша
+        window.addEventListener('hashchange', handleHashChange);
+
+        // Автоматическая загрузка при открытии страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.location.hash) {
+                handleHashChange();
+            }
+        });
+
+
+
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function () {
+                // Удаляем класс active со всех пунктов
+                document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+                // Добавляем класс active на кликнутый элемент
+                this.classList.add('active');
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
